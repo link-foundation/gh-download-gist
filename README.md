@@ -230,6 +230,10 @@ npm run check
 - Internet connection to fetch gists
 - GitHub token for private gists (optional for public gists)
 
+### Known Limitations
+
+- **Windows Support**: This proof of concept uses `use-m` for dynamic dependency loading, which has known issues with Windows absolute paths. For production use on Windows, consider using traditional npm dependencies instead of use-m, or use the tool via WSL (Windows Subsystem for Linux).
+
 ## Contributing
 
 Contributions are welcome! See our [contributing guidelines](CONTRIBUTING.md) for details.

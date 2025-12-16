@@ -70,6 +70,15 @@ test('gh-download-gist handles invalid gist URL', () => {
 // Note: This test requires internet connection and GitHub API access
 // It uses a public gist so no token is needed
 test('gh-download-gist downloads a public gist (requires internet)', async () => {
+  // Skip on Windows due to use-m path issues with Windows absolute paths
+  // See: https://github.com/link-foundation/use-m/issues (Windows file:// URL scheme)
+  if (process.platform === 'win32') {
+    console.log(
+      'Skipping test on Windows - use-m has known Windows path issues'
+    );
+    return;
+  }
+
   // Using a well-known public gist (GitHub's hello-world gist)
   const testGistId = '1';
   const outputFile = join(process.cwd(), `gist-${testGistId}.md`);
