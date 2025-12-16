@@ -272,12 +272,14 @@ describe('gh-download-gist CLI', () => {
       if (existsSync(outputFile)) {
         unlinkSync(outputFile);
       }
-      // If this is a network error, skip the test
+      // If this is a network error or rate limit, skip the test
       if (
         error.message.includes('ENOTFOUND') ||
-        error.message.includes('ETIMEDOUT')
+        error.message.includes('ETIMEDOUT') ||
+        error.message.includes('403') ||
+        error.message.includes('rate limit')
       ) {
-        console.log('Skipping test - network not available');
+        console.log('Skipping test - network issue or rate limit');
         return;
       }
       throw error;
