@@ -2,24 +2,18 @@
 ':'; // # ; exec "$(command -v bun || command -v node)" "$0" "$@"
 
 // Import built-in Node.js modules
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Download use-m dynamically
-const { use } = eval(
-  await (await fetch('https://unpkg.com/use-m/use.js')).text()
-);
-
-// Import modern npm libraries using use-m
-const { Octokit } = await use('@octokit/rest@22.0.0');
-const fsExtra = await use('fs-extra@11.3.0');
-const fs = fsExtra.default || fsExtra;
-const { default: yargs } = await use('yargs@17.7.2');
-const { hideBin } = await use('yargs@17.7.2/helpers');
+// Import npm dependencies
+import { Octokit } from '@octokit/rest';
+import fs from 'fs-extra';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 // Get version from package.json or fallback
 let version = '0.1.0'; // Fallback version
@@ -53,7 +47,7 @@ const log = (color, message) =>
 // Helper function to check if gh CLI is installed
 async function isGhInstalled() {
   try {
-    const { execSync } = await import('child_process');
+    const { execSync } = await import('node:child_process');
     execSync('gh --version', { stdio: 'pipe' });
     return true;
   } catch (_error) {
@@ -68,7 +62,7 @@ async function getGhToken() {
       return null;
     }
 
-    const { execSync } = await import('child_process');
+    const { execSync } = await import('node:child_process');
     const token = execSync('gh auth token', {
       encoding: 'utf8',
       stdio: 'pipe',
