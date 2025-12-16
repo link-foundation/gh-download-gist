@@ -1,6 +1,6 @@
 {
   "name": "gh-download-gist",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
   "main": "src/gh-download-gist.mjs",
