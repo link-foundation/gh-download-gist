@@ -1,7 +1,7 @@
 import { test } from 'test-anywhere';
-import { execSync } from 'child_process';
-import { existsSync, unlinkSync, readFileSync } from 'fs';
-import { join } from 'path';
+import { execSync } from 'node:child_process';
+import { existsSync, unlinkSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const CLI_PATH = join(process.cwd(), 'src', 'gh-download-gist.mjs');
 
