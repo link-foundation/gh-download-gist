@@ -1,175 +1,242 @@
-# js-ai-driven-development-pipeline-template
+# gh-download-gist
 
-A comprehensive template for AI-driven JavaScript/TypeScript development with full CI/CD pipeline support.
+Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis.
 
 ## Features
 
-- **Multi-runtime support**: Works with Node.js, Bun, and Deno
-- **Universal testing**: Uses [test-anywhere](https://github.com/link-foundation/test-anywhere) for cross-runtime tests
-- **Automated releases**: Changesets-based versioning with GitHub Actions
-- **Code quality**: ESLint + Prettier with pre-commit hooks via Husky
-- **Package manager agnostic**: Works with npm, yarn, bun, deno, and pnpm
+- **Download any GitHub gist**: Public or private (with authentication)
+- **Multiple authentication methods**: Token, GitHub CLI, or environment variable
+- **Flexible input formats**: Full URLs or just gist IDs
+- **Markdown output**: Clean, structured markdown with syntax highlighting
+- **Cross-runtime support**: Works with Node.js, Bun, and Deno
+- **Zero dependencies**: Uses dynamic loading for minimal package size
 
-## Quick Start
+## Installation
 
-### Using This Template
-
-1. Click "Use this template" on GitHub to create a new repository
-2. Clone your new repository
-3. Update `package.json` with your package name and description
-4. Update the `PACKAGE_NAME` constant in these scripts:
-   - `scripts/validate-changeset.mjs`
-   - `scripts/publish-to-npm.mjs`
-   - `scripts/format-release-notes.mjs`
-   - `scripts/create-manual-changeset.mjs`
-5. Install dependencies: `npm install`
-6. Start developing!
-
-### Development
+Install globally to use from anywhere:
 
 ```bash
+npm install -g gh-download-gist
+```
+
+Or with other package managers:
+
+```bash
+# Using Bun
+bun install -g gh-download-gist
+
+# Using pnpm
+pnpm install -g gh-download-gist
+
+# Using yarn
+yarn global add gh-download-gist
+```
+
+## Usage
+
+### Basic Usage
+
+Download a gist using its ID:
+
+```bash
+gh-download-gist abc123def456
+```
+
+Or using the full URL:
+
+```bash
+gh-download-gist https://gist.github.com/username/abc123def456
+```
+
+### Authentication
+
+For private gists or to avoid rate limits, provide authentication:
+
+**Using GitHub CLI (recommended):**
+
+```bash
+# The tool automatically detects gh CLI authentication
+gh auth login
+gh-download-gist abc123def456
+```
+
+**Using a token:**
+
+```bash
+gh-download-gist abc123def456 --token ghp_your_token_here
+```
+
+**Using environment variable:**
+
+```bash
+export GITHUB_TOKEN=ghp_your_token_here
+gh-download-gist abc123def456
+```
+
+### Custom Output
+
+Specify a custom output file:
+
+```bash
+gh-download-gist abc123def456 --output my-gist.md
+```
+
+By default, gists are saved to `gist-<id>.md` in the current directory.
+
+## Examples
+
+```bash
+# Download a public gist
+gh-download-gist 1
+
+# Download using full URL
+gh-download-gist https://gist.github.com/octocat/abc123def456
+
+# Download to specific file
+gh-download-gist abc123 -o code-snippet.md
+
+# Download private gist with token
+gh-download-gist abc123 --token ghp_yourtoken
+
+# Show help
+gh-download-gist --help
+
+# Show version
+gh-download-gist --version
+```
+
+## Output Format
+
+The generated markdown includes:
+
+- **Gist metadata**: ID, author, visibility, creation/update dates
+- **Description**: Gist description if provided
+- **All files**: Each file with syntax highlighting based on language
+- **File details**: Language, size, and raw URL for each file
+
+Example output structure:
+
+````markdown
+# Gist Title
+
+**Gist ID:** [abc123](https://gist.github.com/user/abc123)
+**Author:** [@username](https://github.com/username)
+**Public:** Yes
+**Created:** 1/1/2024, 12:00:00 PM
+**Updated:** 1/2/2024, 3:30:00 PM
+**Files:** 2
+
+---
+
+## Files
+
+### 1. example.js
+
+**Language:** JavaScript
+**Size:** 256 bytes
+
+```javascript
+console.log('Hello, world!');
+```
+````
+
+---
+
+### 2. README.md
+
+**Language:** Markdown
+**Size:** 128 bytes
+
+```markdown
+# Example Gist
+```
+
+````
+
+## CLI Options
+
+| Option               | Alias | Description                                       |
+| -------------------- | ----- | ------------------------------------------------- |
+| `<gist>`             |       | GitHub gist URL or gist ID (required)             |
+| `--token <token>`    | `-t`  | GitHub personal access token                      |
+| `--output <file>`    | `-o`  | Output file path (default: `gist-<id>.md`)        |
+| `--help`             | `-h`  | Show help message                                 |
+| `--version`          |       | Show version number                               |
+
+## Development
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/link-foundation/gh-download-gist.git
+cd gh-download-gist
+
 # Install dependencies
 npm install
+````
 
-# Run tests
+### Testing
+
+```bash
+# Run tests with Node.js
 npm test
 
-# Or with other runtimes:
+# Or with other runtimes
 bun test
-deno test --allow-read
+deno test --allow-read --allow-net --allow-run --allow-env
+```
 
+### Code Quality
+
+```bash
 # Lint code
 npm run lint
 
 # Format code
 npm run format
 
-# Check all (lint + format + file size)
+# Run all checks (lint + format + file size)
 npm run check
 ```
 
-## Project Structure
+### Making Changes
 
-```
-.
-├── .changeset/           # Changeset configuration
-├── .github/workflows/    # GitHub Actions CI/CD
-├── .husky/               # Git hooks (pre-commit)
-├── examples/             # Usage examples
-├── scripts/              # Build and release scripts
-├── src/                  # Source code
-│   ├── index.js          # Main entry point
-│   └── index.d.ts        # TypeScript definitions
-├── tests/                # Test files
-├── .eslintrc.js          # ESLint configuration
-├── .prettierrc           # Prettier configuration
-├── bunfig.toml           # Bun configuration
-├── deno.json             # Deno configuration
-└── package.json          # Node.js package manifest
-```
+1. Create a feature branch
+2. Make your changes
+3. Create a changeset: `npm run changeset`
+4. Commit your changes (pre-commit hooks will run automatically)
+5. Push and create a Pull Request
 
-## Design Choices
+## How It Works
 
-### Multi-Runtime Support
+1. **Dynamic Loading**: Uses `use-m` to load dependencies on-the-fly
+2. **GitHub API**: Fetches gist data via Octokit REST API
+3. **Authentication**: Cascades through token → gh CLI → env var → unauthenticated
+4. **Markdown Conversion**: Formats gist data into structured markdown
+5. **File Output**: Saves to local filesystem
 
-This template is designed to work seamlessly with all major JavaScript runtimes:
+## Use Cases
 
-- **Node.js**: Primary runtime, uses built-in test runner (`node --test`)
-- **Bun**: Fast alternative runtime with native test support (`bun test`)
-- **Deno**: Secure runtime with built-in TypeScript support (`deno test`)
+- **AI Processing**: Convert gists to markdown for AI analysis
+- **Offline Access**: Save gists for offline reading
+- **Documentation**: Archive code snippets and examples
+- **Backup**: Create local copies of important gists
+- **Research**: Analyze gist content programmatically
 
-The [test-anywhere](https://github.com/link-foundation/test-anywhere) framework provides a unified testing API that works identically across all runtimes.
+## Requirements
 
-### Package Manager Agnostic
+- Node.js >= 20.0.0 (or Bun >= 1.2.0, or Deno >= 1.40.0)
+- Internet connection to fetch gists
+- GitHub token for private gists (optional for public gists)
 
-While `package.json` is the source of truth for dependencies, the template supports:
+### Known Limitations
 
-- **npm**: Default, generates `package-lock.json`
-- **yarn**: Uses `yarn.lock`
-- **bun**: Uses `bun.lockb`
-- **pnpm**: Uses `pnpm-lock.yaml`
-- **deno**: Uses `deno.json` for configuration
-
-Note: `package-lock.json` is not committed by default to allow any package manager.
-
-### Code Quality
-
-- **ESLint**: Configured with recommended rules + Prettier integration
-- **Prettier**: Consistent code formatting
-- **Husky + lint-staged**: Pre-commit hooks ensure code quality
-- **File size limit**: Scripts must stay under 1000 lines for maintainability
-
-### Release Workflow
-
-The release workflow uses [Changesets](https://github.com/changesets/changesets) for version management:
-
-1. **Creating a changeset**: Run `npm run changeset` to document changes
-2. **PR validation**: CI checks for valid changeset in each PR
-3. **Automated versioning**: Merging to `main` triggers version bump
-4. **npm publishing**: Automated via OIDC trusted publishing (no tokens needed)
-5. **GitHub releases**: Auto-created with formatted release notes
-
-#### Manual Releases
-
-Two manual release modes are available via GitHub Actions:
-
-- **Instant release**: Immediately bump version and publish
-- **Changeset PR**: Create a PR with changeset for review
-
-### CI/CD Pipeline
-
-The GitHub Actions workflow (`.github/workflows/release.yml`) provides:
-
-1. **Changeset check**: Validates PR has exactly one changeset
-2. **Lint & format**: Ensures code quality standards
-3. **Test matrix**: 3 runtimes × 3 OS = 9 test combinations
-4. **Release**: Automated versioning and npm publishing
-
-## Configuration
-
-### Updating Package Name
-
-After creating a repository from this template, update the package name in:
-
-1. `package.json`: `"name": "your-package-name"`
-2. `.changeset/config.json`: Package references
-3. Scripts that reference the package name (see Quick Start)
-
-### ESLint Rules
-
-Customize ESLint in `eslint.config.js`. Current configuration:
-
-- ES Modules support
-- Prettier integration
-- No console restrictions (common in CLI tools)
-- Strict equality enforcement
-- Async/await best practices
-
-### Prettier Options
-
-Configured in `.prettierrc`:
-
-- Single quotes
-- Semicolons
-- 2-space indentation
-- 80-character line width
-- ES5 trailing commas
-- LF line endings
-
-## Scripts Reference
-
-| Script                    | Description                                |
-| ------------------------- | ------------------------------------------ |
-| `npm test`                | Run tests with Node.js                     |
-| `npm run lint`            | Check code with ESLint                     |
-| `npm run lint:fix`        | Fix ESLint issues automatically            |
-| `npm run format`          | Format code with Prettier                  |
-| `npm run format:check`    | Check formatting without changing files    |
-| `npm run check`           | Run all checks (lint + format + file size) |
-| `npm run check:file-size` | Ensure files don't exceed 1000 lines       |
-| `npm run changeset`       | Create a new changeset                     |
+- **Windows Support**: This proof of concept uses `use-m` for dynamic dependency loading, which has known issues with Windows absolute paths. For production use on Windows, consider using traditional npm dependencies instead of use-m, or use the tool via WSL (Windows Subsystem for Linux).
 
 ## Contributing
+
+Contributions are welcome! See our [contributing guidelines](CONTRIBUTING.md) for details.
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/my-feature`
@@ -181,3 +248,16 @@ Configured in `.prettierrc`:
 ## License
 
 [Unlicense](LICENSE) - Public Domain
+
+## Related Tools
+
+- [gh-download-issue](https://github.com/link-foundation/gh-download-issue) - Download GitHub issues
+- [gh-download-pull-request](https://github.com/link-foundation/gh-download-pull-request) - Download pull requests
+
+## Credits
+
+Built with:
+
+- [@octokit/rest](https://github.com/octokit/rest.js) - GitHub API client
+- [yargs](https://github.com/yargs/yargs) - Command-line argument parsing
+- [use-m](https://github.com/link-foundation/use-m) - Dynamic package loading

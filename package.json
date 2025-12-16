@@ -1,16 +1,22 @@
 {
-  "name": "my-package",
+  "name": "gh-download-gist",
   "version": "0.1.0",
-  "description": "A JavaScript/TypeScript package template for AI-driven development",
+  "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "src/gh-download-gist.mjs",
+  "bin": {
+    "gh-download-gist": "./src/gh-download-gist.mjs"
+  },
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "import": "./src/index.js"
+      "import": "./src/gh-download-gist.mjs"
     }
   },
+  "files": [
+    "src/gh-download-gist.mjs",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "node --test tests/",
     "lint": "eslint .",
@@ -26,19 +32,26 @@
     "changeset:status": "changeset status --since=origin/main"
   },
   "keywords": [
-    "template",
-    "javascript",
-    "typescript",
-    "ai-driven"
+    "github",
+    "gist",
+    "cli",
+    "markdown",
+    "download",
+    "ai"
   ],
   "author": "",
   "license": "Unlicense",
   "repository": {
     "type": "git",
-    "url": "https://github.com/link-foundation/js-ai-driven-development-pipeline-template"
+    "url": "https://github.com/link-foundation/gh-download-gist"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "fs-extra": "^11.3.2",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
