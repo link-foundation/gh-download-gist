@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- 3363979: Initial implementation of gh-download-gist CLI tool with gist download and markdown conversion functionality
+- 3363979: Initial implementation of @link-foundation/gh-download-gist CLI tool with gist download and markdown conversion functionality
 
 ## 0.1.0
 

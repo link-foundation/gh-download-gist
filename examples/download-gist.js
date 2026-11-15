@@ -3,7 +3,7 @@
 /**
  * Example: Download a GitHub gist and convert it to markdown
  *
- * This example demonstrates how to use gh-download-gist to fetch
+ * This example demonstrates how to use @link-foundation/gh-download-gist to fetch
  * a public gist and save it as a markdown file.
  *
  * Usage:

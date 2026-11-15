@@ -1,4 +1,4 @@
-# gh-download-gist
+# @link-foundation/gh-download-gist
 
 Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis.
 
@@ -16,20 +16,31 @@ Download GitHub gists and convert them to markdown - perfect for AI processing a
 Install globally to use from anywhere:
 
 ```bash
-npm install -g gh-download-gist
+npm install -g @link-foundation/gh-download-gist
 ```
 
 Or with other package managers:
 
 ```bash
 # Using Bun
-bun install -g gh-download-gist
+bun install -g @link-foundation/gh-download-gist
 
 # Using pnpm
-pnpm install -g gh-download-gist
+pnpm install -g @link-foundation/gh-download-gist
 
 # Using yarn
-yarn global add gh-download-gist
+yarn global add @link-foundation/gh-download-gist
+```
+
+The scoped package installs the `gh-download-gist` executable. npm package scopes
+are not part of executable names.
+
+For a local installation or a one-off run:
+
+```bash
+npm install @link-foundation/gh-download-gist
+./node_modules/.bin/gh-download-gist --help
+npx @link-foundation/gh-download-gist abc123def456
 ```
 
 ## Usage
@@ -199,6 +210,32 @@ npm run format
 # Run all checks (lint + format + file size)
 npm run check
 ```
+
+### Publishing
+
+The package is configured for public publication as
+`@link-foundation/gh-download-gist`.
+Run the preflight before publishing:
+
+```bash
+npm run check
+npm test
+npm run test:package
+npm publish --dry-run --access public
+```
+
+The first publication requires an npm account with publish permission for the
+`@link-foundation` scope. Authenticate with `npm login`, then run
+`npm publish --access public`. Verify with
+`npm view @link-foundation/gh-download-gist version`.
+
+After the first publication, configure npm trusted publishing for this package:
+GitHub organization `link-foundation`, repository `gh-download-gist`, workflow
+`release.yml`. Subsequent releases use GitHub Actions OIDC. Alternatively, set the
+repository's `NPM_TOKEN` Actions secret to a token with publish permission; the
+release workflow supports this for bootstrapping the first publication too.
+Release jobs report an explicit authentication error when neither method is
+available. PR checks do not require publishing credentials.
 
 ### Making Changes
 
