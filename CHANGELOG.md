@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- db821b5: Publish under @link-foundation/gh-download-gist with public access, scoped install examples, and verification of the installed CLI executable.
+
 ## 0.2.0
 
 ### Minor Changes
