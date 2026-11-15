@@ -16,7 +16,7 @@
 import { readFileSync, appendFileSync } from 'fs';
 
 // TODO: Update this to match your package name in package.json
-const PACKAGE_NAME = 'gh-download-gist';
+const PACKAGE_NAME = '@link-foundation/gh-download-gist';
 
 // Load use-m dynamically
 const { use } = eval(
@@ -119,6 +119,12 @@ async function main() {
     }
 
     console.error(`\u274C Failed to publish after ${MAX_RETRIES} attempts`);
+    console.error(
+      'Publishing @link-foundation/gh-download-gist requires npm credentials with scope access. ' +
+        'For the first publication, set the NPM_TOKEN Actions secret or run npm login locally. ' +
+        'For subsequent releases, configure the npm trusted publisher for ' +
+        'link-foundation/gh-download-gist and release.yml.'
+    );
     process.exit(1);
   } catch (error) {
     console.error('Error:', error.message);

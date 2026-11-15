@@ -1,11 +1,11 @@
 {
-  "name": "gh-download-gist",
+  "name": "@link-foundation/gh-download-gist",
   "version": "0.2.0",
   "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
   "main": "src/gh-download-gist.mjs",
   "bin": {
-    "gh-download-gist": "./src/gh-download-gist.mjs"
+    "gh-download-gist": "src/gh-download-gist.mjs"
   },
   "exports": {
     ".": {
@@ -29,7 +29,8 @@
     "changeset": "changeset",
     "changeset:version": "node scripts/changeset-version.mjs",
     "changeset:publish": "changeset publish",
-    "changeset:status": "changeset status --since=origin/main"
+    "changeset:status": "changeset status --since=origin/main",
+    "test:package": "node experiments/verify-package.mjs"
   },
   "keywords": [
     "github",
@@ -43,7 +44,7 @@
   "license": "Unlicense",
   "repository": {
     "type": "git",
-    "url": "https://github.com/link-foundation/gh-download-gist"
+    "url": "git+https://github.com/link-foundation/gh-download-gist.git"
   },
   "engines": {
     "node": ">=20.0.0"
@@ -73,5 +74,8 @@
       "prettier --write",
       "prettier --check"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

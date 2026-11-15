@@ -2,7 +2,7 @@
 ':'; // # ; exec "$(command -v bun || command -v deno run -A || command -v node)" "$0" "$@"
 
 /**
- * CLI tests for gh-download-gist
+ * CLI tests for @link-foundation/gh-download-gist
  *
  * Uses test-anywhere for multi-runtime support (Node.js, Bun, Deno)
  *
