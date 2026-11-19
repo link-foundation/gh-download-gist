@@ -1,11 +1,11 @@
 {
-  "name": "@link-foundation/gh-download-gist",
+  "name": "@link-foundation/gh-download-snippet",
   "version": "0.2.1",
   "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
   "main": "src/gh-download-gist.mjs",
   "bin": {
-    "gh-download-gist": "src/gh-download-gist.mjs"
+    "gh-download-snippet": "src/gh-download-gist.mjs"
   },
   "exports": {
     ".": {
