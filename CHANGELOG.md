@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+### Patch Changes
+
+- 4b5132d: Rename the npm package to `@link-foundation/gh-content-fetch` and the CLI to `gh-content-fetch` because npm rejects the original `gist` name and the `gh-download-snippet` alternative as disallowed words.
+
 ## 0.2.1
 
 ### Patch Changes
