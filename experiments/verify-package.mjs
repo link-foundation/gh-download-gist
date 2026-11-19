@@ -8,9 +8,9 @@ import { fileURLToPath, URL } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-assert.equal(pkg.name, '@link-foundation/gh-download-gist');
+assert.equal(pkg.name, '@link-foundation/gh-download-snippet');
 assert.equal(pkg.publishConfig.access, 'public');
-assert.equal(pkg.bin['gh-download-gist'], 'src/gh-download-gist.mjs');
+assert.equal(pkg.bin['gh-download-snippet'], 'src/gh-download-snippet.mjs');
 const lock = JSON.parse(readFileSync(join(root, 'package-lock.json'), 'utf8'));
 assert.equal(lock.name, pkg.name);
 assert.equal(lock.packages[''].name, pkg.name);
@@ -51,13 +51,15 @@ try {
     directory,
     'node_modules',
     '.bin',
-    process.platform === 'win32' ? 'gh-download-gist.cmd' : 'gh-download-gist'
+    process.platform === 'win32'
+      ? 'gh-download-snippet.cmd'
+      : 'gh-download-snippet'
   );
   assert.equal(run(bin, ['--version'], directory).trim(), pkg.version);
   const help = run(bin, ['--help'], directory);
   assert.match(help, /--token/);
   assert.match(help, /--output/);
-  assert.match(help, /gh-download-gist/);
+  assert.match(help, /gh-download-snippet/);
   console.log(
     `Verified ${pkg.name}@${pkg.version}: packed install, bin help and version`
   );

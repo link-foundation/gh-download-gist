@@ -24,7 +24,7 @@
  */
 
 // TODO: Update this to match your package name in package.json
-const PACKAGE_NAME = '@link-foundation/gh-download-gist';
+const PACKAGE_NAME = '@link-foundation/gh-download-snippet';
 
 // Load use-m dynamically
 const { use } = eval(

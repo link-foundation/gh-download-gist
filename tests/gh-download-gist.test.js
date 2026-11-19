@@ -2,7 +2,7 @@
 ':'; // # ; exec "$(command -v bun || command -v deno run -A || command -v node)" "$0" "$@"
 
 /**
- * CLI tests for @link-foundation/gh-download-gist
+ * CLI tests for @link-foundation/gh-download-snippet
  *
  * Uses test-anywhere for multi-runtime support (Node.js, Bun, Deno)
  *
@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 setDefaultTimeout(20000);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-gist.mjs');
+const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-snippet.mjs');
 
 /**
  * Cross-runtime command execution helper
@@ -112,7 +112,7 @@ function getRuntimeArgs(scriptPath) {
   }
 }
 
-describe('gh-download-gist CLI', () => {
+describe('gh-download-snippet CLI', () => {
   it('CLI exists and is executable', () => {
     if (!existsSync(CLI_PATH)) {
       throw new Error(`CLI script not found at ${CLI_PATH}`);
