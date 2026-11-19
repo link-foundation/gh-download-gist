@@ -1,6 +1,6 @@
 {
   "name": "@link-foundation/gh-content-fetch",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
   "main": "src/gh-content-fetch.mjs",

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+### Patch Changes
+
+- Publish through OIDC after migrating the release workflow
+
 ## 0.2.2
 
 ### Patch Changes
