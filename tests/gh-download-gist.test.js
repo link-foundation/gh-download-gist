@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 setDefaultTimeout(20000);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-gist.mjs');
+const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-snippet.mjs');
 
 /**
  * Cross-runtime command execution helper

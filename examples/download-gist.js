@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Path to the CLI script
-const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-gist.mjs');
+const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-snippet.mjs');
 
 console.log('Example: Downloading a public GitHub gist...\n');
 
