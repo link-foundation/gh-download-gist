@@ -1,4 +1,4 @@
-# @link-foundation/gh-download-snippet
+# @link-foundation/gh-content-fetch
 
 Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis.
 
@@ -16,31 +16,31 @@ Download GitHub gists and convert them to markdown - perfect for AI processing a
 Install globally to use from anywhere:
 
 ```bash
-npm install -g @link-foundation/gh-download-snippet
+npm install -g @link-foundation/gh-content-fetch
 ```
 
 Or with other package managers:
 
 ```bash
 # Using Bun
-bun install -g @link-foundation/gh-download-snippet
+bun install -g @link-foundation/gh-content-fetch
 
 # Using pnpm
-pnpm install -g @link-foundation/gh-download-snippet
+pnpm install -g @link-foundation/gh-content-fetch
 
 # Using yarn
-yarn global add @link-foundation/gh-download-snippet
+yarn global add @link-foundation/gh-content-fetch
 ```
 
-The scoped package installs the `gh-download-snippet` executable. npm package scopes
+The scoped package installs the `gh-content-fetch` executable. npm package scopes
 are not part of executable names.
 
 For a local installation or a one-off run:
 
 ```bash
-npm install @link-foundation/gh-download-snippet
-./node_modules/.bin/gh-download-snippet --help
-npx @link-foundation/gh-download-snippet abc123def456
+npm install @link-foundation/gh-content-fetch
+./node_modules/.bin/gh-content-fetch --help
+npx @link-foundation/gh-content-fetch abc123def456
 ```
 
 ## Usage
@@ -50,13 +50,13 @@ npx @link-foundation/gh-download-snippet abc123def456
 Download a gist using its ID:
 
 ```bash
-gh-download-snippet abc123def456
+gh-content-fetch abc123def456
 ```
 
 Or using the full URL:
 
 ```bash
-gh-download-snippet https://gist.github.com/username/abc123def456
+gh-content-fetch https://gist.github.com/username/abc123def456
 ```
 
 ### Authentication
@@ -68,20 +68,20 @@ For private gists or to avoid rate limits, provide authentication:
 ```bash
 # The tool automatically detects gh CLI authentication
 gh auth login
-gh-download-snippet abc123def456
+gh-content-fetch abc123def456
 ```
 
 **Using a token:**
 
 ```bash
-gh-download-snippet abc123def456 --token ghp_your_token_here
+gh-content-fetch abc123def456 --token ghp_your_token_here
 ```
 
 **Using environment variable:**
 
 ```bash
 export GITHUB_TOKEN=ghp_your_token_here
-gh-download-snippet abc123def456
+gh-content-fetch abc123def456
 ```
 
 ### Custom Output
@@ -89,7 +89,7 @@ gh-download-snippet abc123def456
 Specify a custom output file:
 
 ```bash
-gh-download-snippet abc123def456 --output my-gist.md
+gh-content-fetch abc123def456 --output my-gist.md
 ```
 
 By default, gists are saved to `gist-<id>.md` in the current directory.
@@ -98,22 +98,22 @@ By default, gists are saved to `gist-<id>.md` in the current directory.
 
 ```bash
 # Download a public gist
-gh-download-snippet 1
+gh-content-fetch 1
 
 # Download using full URL
-gh-download-snippet https://gist.github.com/octocat/abc123def456
+gh-content-fetch https://gist.github.com/octocat/abc123def456
 
 # Download to specific file
-gh-download-snippet abc123 -o code-snippet.md
+gh-content-fetch abc123 -o code-snippet.md
 
 # Download private gist with token
-gh-download-snippet abc123 --token ghp_yourtoken
+gh-content-fetch abc123 --token ghp_yourtoken
 
 # Show help
-gh-download-snippet --help
+gh-content-fetch --help
 
 # Show version
-gh-download-snippet --version
+gh-content-fetch --version
 ```
 
 ## Output Format
@@ -214,7 +214,7 @@ npm run check
 ### Publishing
 
 The package is configured for public publication as
-`@link-foundation/gh-download-snippet`.
+`@link-foundation/gh-content-fetch`.
 Run the preflight before publishing:
 
 ```bash
@@ -227,7 +227,7 @@ npm publish --dry-run --access public
 The first publication requires an npm account with publish permission for the
 `@link-foundation` scope. Authenticate with `npm login`, then run
 `npm publish --access public`. Verify with
-`npm view @link-foundation/gh-download-snippet version`.
+`npm view @link-foundation/gh-content-fetch version`.
 
 After the first publication, configure npm trusted publishing for this package:
 GitHub organization `link-foundation`, repository `gh-download-gist`, workflow

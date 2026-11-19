@@ -16,7 +16,7 @@ import { writeFileSync } from 'fs';
 import { randomBytes } from 'crypto';
 
 // TODO: Update this to match your package name in package.json
-const PACKAGE_NAME = '@link-foundation/gh-download-snippet';
+const PACKAGE_NAME = '@link-foundation/gh-content-fetch';
 
 // Load use-m dynamically
 const { use } = eval(

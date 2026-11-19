@@ -10,7 +10,7 @@ import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 // TODO: Update this to match your package name in package.json
-const PACKAGE_NAME = '@link-foundation/gh-download-snippet';
+const PACKAGE_NAME = '@link-foundation/gh-content-fetch';
 
 try {
   // Count changeset files (excluding README.md and config.json)

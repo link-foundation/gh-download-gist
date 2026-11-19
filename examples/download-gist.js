@@ -3,7 +3,7 @@
 /**
  * Example: Download a GitHub gist and convert it to markdown
  *
- * This example demonstrates how to use @link-foundation/gh-download-snippet to fetch
+ * This example demonstrates how to use @link-foundation/gh-content-fetch to fetch
  * a public gist and save it as a markdown file.
  *
  * Usage:
@@ -18,13 +18,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Path to the CLI script
-const CLI_PATH = join(__dirname, '..', 'src', 'gh-download-snippet.mjs');
+const CLI_PATH = join(__dirname, '..', 'src', 'gh-content-fetch.mjs');
 
 console.log('Example: Downloading a public GitHub gist...\n');
 
 // Example 1: Download using gist ID
 console.log('Example 1: Using gist ID');
-console.log('Command: node gh-download-snippet.mjs 1\n');
+console.log('Command: node gh-content-fetch.mjs 1\n');
 
 try {
   const output = execSync(`node ${CLI_PATH} 1 -o gist-example-1.md`, {
@@ -39,28 +39,24 @@ console.log('\n---\n');
 
 // Example 2: Download using full URL
 console.log('Example 2: Using full gist URL');
-console.log(
-  'Command: node gh-download-snippet.mjs https://gist.github.com/...\n'
-);
+console.log('Command: node gh-content-fetch.mjs https://gist.github.com/...\n');
 
 console.log(
-  'You can also use the full URL format:\n  gh-download-snippet https://gist.github.com/username/gist-id\n'
+  'You can also use the full URL format:\n  gh-content-fetch https://gist.github.com/username/gist-id\n'
 );
 
 console.log('\n---\n');
 
 // Example 3: Using with token
 console.log('Example 3: Using with GitHub token (for private gists)');
+console.log('Command: node gh-content-fetch.mjs gist-id --token YOUR_TOKEN\n');
+
 console.log(
-  'Command: node gh-download-snippet.mjs gist-id --token YOUR_TOKEN\n'
+  'For private gists or to avoid rate limits, provide a token:\n  gh-content-fetch gist-id --token ghp_your_token_here\n'
 );
 
 console.log(
-  'For private gists or to avoid rate limits, provide a token:\n  gh-download-snippet gist-id --token ghp_your_token_here\n'
-);
-
-console.log(
-  'Or use the gh CLI (will auto-detect token):\n  gh-download-snippet gist-id\n'
+  'Or use the gh CLI (will auto-detect token):\n  gh-content-fetch gist-id\n'
 );
 
 console.log('\nExample completed!');
