@@ -35,7 +35,6 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  # Changeset check - only runs on PRs
   changeset-check:
     name: Check for Changesets
     runs-on: ubuntu-latest
@@ -193,14 +192,34 @@ jobs:
         id: version
         run: node scripts/version-and-commit.mjs --mode changeset
 
-      - name: Publish to npm
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: npm install --global npm@^11
+      - name: Publish to npm (OIDC)
         # Run if version was committed OR if a previous attempt already committed (for re-runs)
         if: steps.version.outputs.version_committed == 'true' || steps.version.outputs.already_released == 'true'
         id: publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: node scripts/publish-to-npm.mjs --should-pull
 
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
+          NPM_AUTH_TOKEN: ''
+          NPM_CONFIG_PROVENANCE: 'true'
+
+      - name: Publish to npm (token fallback)
+        # Run if version was committed OR if a previous attempt already committed (for re-runs)
+        run: node scripts/publish-to-npm.mjs --should-pull
+
+        if: steps.publish.outcome == 'failure'
+        id: publish_fallback
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
       - name: Create GitHub Release
         if: steps.publish.outputs.published == 'true'
         env:
@@ -247,14 +266,34 @@ jobs:
         id: version
         run: node scripts/version-and-commit.mjs --mode instant --bump-type "${{ github.event.inputs.bump_type }}" --description "${{ github.event.inputs.description }}"
 
-      - name: Publish to npm
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: npm install --global npm@^11
+      - name: Publish to npm (OIDC)
         # Run if version was committed OR if a previous attempt already committed (for re-runs)
         if: steps.version.outputs.version_committed == 'true' || steps.version.outputs.already_released == 'true'
         id: publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: node scripts/publish-to-npm.mjs
 
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
+          NPM_AUTH_TOKEN: ''
+          NPM_CONFIG_PROVENANCE: 'true'
+
+      - name: Publish to npm (token fallback)
+        # Run if version was committed OR if a previous attempt already committed (for re-runs)
+        run: node scripts/publish-to-npm.mjs
+
+        if: steps.publish.outcome == 'failure'
+        id: publish_fallback
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.NODE_AUTH_TOKEN || secrets.NPM_AUTH_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
       - name: Create GitHub Release
         if: steps.publish.outputs.published == 'true'
         env:
