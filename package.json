@@ -1,19 +1,19 @@
 {
-  "name": "@link-foundation/gh-download-snippet",
+  "name": "@link-foundation/gh-content-fetch",
   "version": "0.2.1",
   "description": "Download GitHub gists and convert them to markdown - perfect for AI processing and offline analysis",
   "type": "module",
-  "main": "src/gh-download-snippet.mjs",
+  "main": "src/gh-content-fetch.mjs",
   "bin": {
-    "gh-download-snippet": "src/gh-download-snippet.mjs"
+    "gh-content-fetch": "src/gh-content-fetch.mjs"
   },
   "exports": {
     ".": {
-      "import": "./src/gh-download-snippet.mjs"
+      "import": "./src/gh-content-fetch.mjs"
     }
   },
   "files": [
-    "src/gh-download-snippet.mjs",
+    "src/gh-content-fetch.mjs",
     "README.md",
     "LICENSE"
   ],
